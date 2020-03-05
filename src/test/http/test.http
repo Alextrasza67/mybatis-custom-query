@@ -1,0 +1,99 @@
+###
+POST http://{{basePath}}/listAllQuery
+Content-Type: application/json
+
+{
+}
+
+###
+POST http://{{basePath}}/queryDetail
+Content-Type: application/json
+
+{
+  "sqlId": 34
+}
+
+###
+POST http://{{basePath}}/saveQuery
+Content-Type: application/json
+
+{
+  "title": "查询sql tmpl",
+  "remark": "查询 core_custom_query_text",
+  "sql": "select text_id, log_id, sql_text, params, result from core_custom_query_log_text t where t.LOG_ID=#{logId}",
+  "params": [
+    {
+      "name": "logId",
+      "type": "numeric"
+    }
+  ]
+}
+
+###
+POST http://{{basePath}}/saveQuery
+Content-Type: application/json
+
+{
+  "sqlId": 1,
+  "title": "测试sql1",
+  "remark": "测试sql备注",
+  "sql": "select 1 as count",
+  "params": []
+}
+
+###
+POST http://{{basePath}}/findQueryLogList
+Content-Type: application/json
+
+{
+  "sqlId": 35
+}
+
+###
+POST http://{{basePath}}/queryLogDetail
+Content-Type: application/json
+
+{
+  "logId": 64
+}
+
+###
+POST http://{{basePath}}/executeSql
+Content-Type: application/json
+
+{
+  "sqlId": 34,
+  "params": {
+    "logId": 42
+  }
+}
+
+###
+POST http://{{basePath}}/saveQuery
+Content-Type: application/json
+
+{
+  "title": "查询sql tmpl",
+  "remark": "查询 from datasource2",
+  "sql": "select * from test where id=#{id}",
+  "params": [
+    {
+      "name": "id",
+      "type": "numeric"
+    }
+  ]
+}
+
+###
+POST http://{{basePath}}/executeSql
+Content-Type: application/json
+
+{
+  "sqlId": 35,
+  "params": {
+    "id": 2,
+    "__datasource__": "DATASOURCE1"
+  }
+}
+
+###
