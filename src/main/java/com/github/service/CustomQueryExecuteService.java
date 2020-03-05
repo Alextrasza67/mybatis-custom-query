@@ -1,7 +1,6 @@
 package com.github.service;
 
-import com.github.druid.config.DataSourceContext;
-import com.github.druid.config.DatasourceName;
+import com.github.druid.datasource.DataSourceContext;
 import com.github.dto.CustomQueryDetail;
 import com.github.dto.CustomQueryLogDetail;
 import com.github.dto.QueryResult;
@@ -52,7 +51,7 @@ public class CustomQueryExecuteService {
         //如果参数中提供datasource配置，切换使用对应数据源
         if(datasource != null){
             try {
-                DataSourceContext.setDataSource(DatasourceName.valueOf(datasource));
+                DataSourceContext.setDataSource(datasource);
                 log.info("current database is : {}", params.get("__datasource__"));
                 //此处由于需要切换数据源，需要新起事务管理，重新决定datasource
                 result = queryExecuteService.execute(params);

@@ -2,6 +2,7 @@ package com.github.druid.config;
 
 import com.alibaba.druid.pool.DruidDataSource;
 import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
+import com.github.druid.datasource.CustomRoutingDataSource;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -27,15 +28,12 @@ public class CustomDataSource {
         return DruidDataSourceBuilder.create().build();
     }
 
-//    public static Map<Object, Object> targetDataSources;
-
     @Primary
     @Bean
     public CustomRoutingDataSource customRoutingDataSource(DataSource dataSource, DataSource dataSourceOne) {
         Map<Object, Object> targetDataSources = new HashMap<>(5);
-        targetDataSources.put(DatasourceName.DEFAULT, dataSource);
-        targetDataSources.put(DatasourceName.DATASOURCE1, dataSourceOne);
-//        this.targetDataSources = targetDataSources;
+        targetDataSources.put("default", dataSource);
+        targetDataSources.put("datasource1", dataSourceOne);
         CustomRoutingDataSource customRoutingDataSource = new CustomRoutingDataSource();
         customRoutingDataSource.setDefaultTargetDataSource(dataSource);
         customRoutingDataSource.setTargetDataSources(targetDataSources);
